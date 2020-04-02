@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>{{ title }}</title>
+</head>
+<body>
+    <form action="/Oauth/consentResp" method="POST">
+
+    <input type="checkbox" id="openid" name="openid">
+    <label for="openid">openid</label>
+
+    <input type="checkbox" id="offline" name="offline">
+    <label for="offline">offline</label>
+
+    <input type="hidden" value="{{ challenge }}" name="challenge"> 
+    <input type="submit" value="ok" name="submit">
+    </form>
+    
+
+</body>
+</html>

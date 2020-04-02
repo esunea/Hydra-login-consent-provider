@@ -1,0 +1,58 @@
+docker-compose -f quickstart2.yml \
+    -f quickstart-postgres.yml \
+    up --build
+
+
+
+
+docker-compose -f quickstart2.yml exec hydra \
+    hydra clients create \
+    --endpoint http://box2.tekin.fr:4445/ \
+    --id my-client \
+    --secret secret \
+    -g client_credentials
+
+
+
+
+docker-compose -f quickstart2.yml exec hydra \
+    hydra token client \
+    --endpoint http://box2.tekin.fr:4444/ \
+    --client-id my-client \
+    --client-secret secret
+
+
+docker-compose -f quickstart2.yml exec hydra \
+    hydra clients create \
+    --endpoint http://box2.tekin.fr:4445 \
+    --id auth-code-client \
+    --secret secret \
+    --grant-types authorization_code,refresh_token \
+    --response-types code,id_token \
+    --scope openid,offline \
+    --callbacks http://box2.tekin.fr:5555/callback
+
+
+
+docker-compose -f quickstart2.yml exec hydra \
+    hydra token user \
+    --client-id auth-code-client \
+    --client-secret secret \
+    --endpoint http://box2.tekin.fr:4444/ \
+    --port 5555 \
+    --scope openid,offline
+
+
+
+
+    http://box2.tekin.fr:4444/oauth2/auth?audience=&client_id=auth-code-client&max_age=0&nonce=vvotrwvvubacyjectlouqzwu&prompt=&redirect_uri=http%3A%2F%2F127.0.0.1%3A5555%2Fcallback&response_type=code&scope=openid+offline&state=nvqeummgrqxopbswosqpnrfr
+    http://box2.tekin.fr:4444/oauth2/auth?audience=&client_id=auth-code-client&max_age=0&nonce=vvotrwvvubacyjectlouqzwu&prompt=&redirect_uri=http%3A%2F%2Fbox2.tekin.fr%3A5555%2Fcallback&response_type=code&scope=openid+offline&state=nvqeummgrqxopbswosqpnrfr
+
+    http://box2.tekin.fr:4444/oauth2/auth?audience=&client_id=auth-code-client&max_age=0&nonce=iptimbzrcuvrbatacabwbcch&prompt=&redirect_uri=http%3A%2F%2Fbox2.tekin.fr%3A5555%2Fcallback&response_type=code&scope=openid+offline&state=lbclpryzkzcoupneljgrtzrg
+    http://box2.tekin.fr:4444/oauth2/auth?audience=&client_id=auth-code-client&max_age=0&nonce=juunjhjtrvhrujrklxahafus&prompt=&redirect_uri=http%3A%2F%2Fbox2.tekin.fr%3A5555%2Fcallback&response_type=code&scope=openid+offline&state=roujtialnvmxccydfajizoga
+
+    http://box2.tekin.fr:4444/oauth2/auth?audience=&client_id=auth-code-client&max_age=0&nonce=mxzszfjxnnjojsmtksyhdhbe&prompt=&redirect_uri=http%3A%2F%2Fbox2.tekin.fr%3A5555%2Fcallback&response_type=code&scope=openid+offline&state=wsbpoyakhedpbralzdppdbhf
+    http://box2.tekin.fr:4444/oauth2/auth?audience=&client_id=auth-code-client&max_age=0&nonce=cfmglovwwvufqcragcsksvud&prompt=&redirect_uri=http%3A%2F%2Fbox2.tekin.fr%3A5555%2Fcallback&response_type=code&scope=openid+offline&state=snqndhasgoiozpvwhfqrbmds
+    http://box2.tekin.fr:4444/oauth2/auth?audience=&client_id=auth-code-client&max_age=0&nonce=cmhzjboszjomaokuodmhktuv&prompt=&redirect_uri=http%3A%2F%2Fbox2.tekin.f%3A5555%2Fcallback&response_type=code&scope=openid+offline&state=msmjcyasnvxnkqanpbxxonvb
+    http://box2.tekin.fr:4444/oauth2/auth?audience=&client_id=auth-code-client&max_age=0&nonce=rmwrzidsxmildkliuhpirmsh&prompt=&redirect_uri=http%3A%2F%2Fbox2.tekin.fr%3A5555%2Fcallback&response_type=code&scope=openid+offline&state=sefwpfgrxkhgimwxogsgoxiz
+    http://box2.tekin.fr:4444/oauth2/auth?audience=&client_id=auth-code-client&max_age=0&nonce=dxqrbhuiizouzuykxiawdjwv&prompt=&redirect_uri=http%3A%2F%2Fbox2.tekin.fr%3A5555%2Fcallback&response_type=code&scope=openid+offline&state=bkysmklicbdygzncoioxwrkh

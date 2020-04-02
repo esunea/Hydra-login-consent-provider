@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>{{ title }}</title>
+</head>
+<body>
+    <form action="/Oauth/loginResp" method="POST">
+    <input type="text" value="plop" name="login">
+    <input type="text" value="pass" name="pass">
+    <input type="hidden" value="{{ challenge }}" name="challenge"> 
+    <input type="submit" value="ok" name="submit">
+    </form>
+    
+
+</body>
+</html>
