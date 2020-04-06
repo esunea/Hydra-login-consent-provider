@@ -25,7 +25,7 @@ export class Oauth_hydra {
                 path : '/oauth2/auth/requests/' + flow + "?" + flow + "_challenge=" + challenge,
                 host : this.hydraAdminUrl,
                 method : 'GET',
-                port:81
+                port:443
                 
             }
             let result:any = await this.fetch(url)
@@ -49,7 +49,7 @@ export class Oauth_hydra {
                 path : '/oauth2/auth/requests/' + flow + "/" + action + "?" + flow + "_challenge=" + challenge,
                 host : this.hydraAdminUrl,
                 method : 'PUT',
-                port:81
+                port:443
             }
             let result:any = await this.fetch(url,body)
             // console.log(result["data"])
