@@ -4,7 +4,7 @@ import  * as https from 'https';
 
 
 export class Oauth_hydra {
-    public hydraAdminUrl = "srvtest.tekin.fr"
+    public hydraAdminUrl = "box2.tekin.fr"
     
     // constructor(){
     //     const url = new URL('/oauth2/auth/requests/' + flow, hydraUrl)
