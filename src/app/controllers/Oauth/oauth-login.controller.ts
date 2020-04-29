@@ -20,12 +20,9 @@ export class OauthLoginController {
   @Get('/login')
   async getLogin(ctx:Context){
     let challenge = ctx.request.query.login_challenge
-    console.log('challenge : ',challenge);
     let result:any = await this.hydra.getHydra('login',challenge);
     if(result){
-      console.log(result['data'])
       if(result['data'] && result['data']['skip']) {
-        console.log('accept')
         let accept = await this.hydra.acceptLogin(challenge, {
           subject:result['data']['subject'],
           // remember:true,
@@ -40,7 +37,6 @@ export class OauthLoginController {
         error: 'hide',
       });
     } else {
-      console.log('result is undefined');
       return new HttpResponseInternalServerError('result is undefined');
     }
     // return new HttpResponseOK(result["data"]);
@@ -48,12 +44,10 @@ export class OauthLoginController {
 
   @Post('/loginResp')
   async putLogin(ctx) {
-    console.log(ctx.request.body);
     let response:any ={};
     let challenge = ctx.request.body.challenge;
     
     let result :any = await this.domiiApi.checkToken(ctx.request.body.login, ctx.request.body.pass)
-    // console.log(result.res)
 
     console.log(result.data)
     if(result.data){
@@ -74,15 +68,12 @@ export class OauthLoginController {
         remember_for:3600
       })
     }else{
-      // console.log(ctx.request.body.login)
       response = await this.hydra.acceptLogin(ctx.request.body.challenge,{
         subject:ctx.request.body.login,
       })
     }
     if(response){
-      console.log(response['data']);
       if(response['data']) {
-        console.log(JSON.parse(response['data'])['redirect_to']);
         return new HttpResponseRedirect(JSON.parse(response['data'])['redirect_to']);
       }
     }
@@ -93,12 +84,9 @@ export class OauthLoginController {
   @Get('/consent')
   async getConsent(ctx:Context){
     let challenge = ctx.request.query.consent_challenge
-    console.log('challenge : ',challenge);
     let result:any = await this.hydra.getConsent(challenge);
     if(result){
-      console.log(result['data'])
       if(result['data'] && result['data']['skip']){
-        console.log('accept');
         let accept = await this.hydra.acceptConsent(challenge,{
           subject:result['data']['subject'],
           // remember:true,
@@ -116,14 +104,12 @@ export class OauthLoginController {
       })
       // }
       if(response) {
-        console.log(response['data'])
         if(response['data']) {
           return new HttpResponseRedirect(JSON.parse(response['data'])['redirect_to']);
         }
       } return new HttpResponseOK('It\'s not Okay');
 
     } else {
-      console.log('result is undefined')
       return new HttpResponseInternalServerError('result is undefined')
     }
     // return new HttpResponseOK(result["data"])
@@ -131,7 +117,6 @@ export class OauthLoginController {
 
   @Post('/consentResp')
   async putConsent(ctx){
-    // console.log(ctx.request.body)
     let response:any ={}
     // if(ctx.request.body.login === "no"){
     //   response = await this.hydra.rejectConsent(ctx.request.body.challenge,{error : "login rejected",error_description:"no !"})
@@ -142,8 +127,6 @@ export class OauthLoginController {
     //     remember_for:3600
     //   })
     // }else{
-      console.log('yop',ctx.request.body.openid)//offline
-      console.log('plop',ctx.request.body.offline)//offline
 
       let grant_scope:Array<string> = []
       if(ctx.request.body.openid =='on'){
@@ -159,7 +142,6 @@ export class OauthLoginController {
     //   })
     // // }
     // if(response){
-    //   console.log(response['data'])
     //   if(response['data']){
     //     return new HttpResponseRedirect(JSON.parse(response['data'])['redirect_to'])
     //   }
