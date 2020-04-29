@@ -1,3 +1,8 @@
+/*
+ *   Copyright (c) 2020 
+ *   All rights reserved.
+ */
+
 
 import  * as https from 'https';
 // import { AdvancedConsoleLogger } from 'typeorm';

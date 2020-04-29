@@ -1,3 +1,8 @@
+/*
+ *   Copyright (c) 2020 
+ *   All rights reserved.
+ */
+
 import { controller } from '@foal/core';
 
 // Custom controllers
