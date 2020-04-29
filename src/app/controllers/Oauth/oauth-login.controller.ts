@@ -1,9 +1,11 @@
 import { Context, Get, HttpResponseOK, dependency, render, Post, HttpResponseInternalServerError, HttpResponseRedirect } from '@foal/core';
-import { Oauth_hydra } from '../../services';
+import { Oauth_hydra, DomiiApi } from '../../services';
 
 export class OauthLoginController {
   @dependency
   hydra:Oauth_hydra
+  @dependency
+  domiiApi : DomiiApi
 
   @Get('/')
   foo(ctx: Context) {
@@ -13,10 +15,10 @@ export class OauthLoginController {
   @Get("/login")
   async getLogin(ctx:Context){
     let challenge = ctx.request.query.login_challenge
-    console.log("challenge : ",challenge)
+    // console.log("challenge : ",challenge)
     let result:any = await this.hydra.getHydra("login",challenge)
     if(result){
-      console.log(result["data"])
+      // console.log(result["data"])
       if(result["data"] && result["data"]["skip"]){
         console.log("accept")
         let accept = await this.hydra.acceptLogin(challenge,{
@@ -39,10 +41,20 @@ export class OauthLoginController {
   
   @Post("/loginResp")
   async putLogin(ctx){
-    console.log(ctx.request.body)
-    let response:any ={};
+    // console.log(ctx.request.body)
+    let response:any ={}
+    // check login
+    let result :any = await this.domiiApi.checkToken(ctx.request.body.login, ctx.request.body.pass)
+    // console.log(result.res)
+
+    console.log(result.data)
+    if(result.data){
+      
+    }
+
     if(ctx.request.body.login === "no"){
-      response = await this.hydra.rejectLogin(ctx.request.body.challenge,{error : "login rejected",error_description:"no !"})
+      // response = await this.hydra.rejectLogin(ctx.request.body.challenge,{error : "login rejected",error_description:"no !"})
+      
     }else if(ctx.request.body.login === "save"){
       response = await this.hydra.acceptLogin(ctx.request.body.challenge,{
         subject:ctx.request.body.login,
@@ -50,7 +62,7 @@ export class OauthLoginController {
         remember_for:3600
       })
     }else{
-      console.log(ctx.request.body.login)
+      // console.log(ctx.request.body.login)
       response = await this.hydra.acceptLogin(ctx.request.body.challenge,{
         subject:ctx.request.body.login,
       })
@@ -70,12 +82,12 @@ export class OauthLoginController {
   @Get("/consent")
   async getConsent(ctx:Context){
     let challenge = ctx.request.query.consent_challenge
-    console.log("challenge : ",challenge)
+    // console.log("challenge : ",challenge)
     let result:any = await this.hydra.getConsent(challenge)
     if(result){
-      console.log(result["data"])
+      // console.log(result["data"])
       if(result["data"] && result["data"]["skip"]){
-        console.log("accept")
+        // console.log("accept")
         let accept = await this.hydra.acceptConsent(challenge,{
           subject:result["data"]["subject"],
           // remember:true,
@@ -86,9 +98,9 @@ export class OauthLoginController {
       return render('./templates/consent.html', {
         challenge: challenge,
         title: 'Home',
-      });
+      })
     }else{
-      console.log("result is undefined")
+      // console.log("result is undefined")
       return new HttpResponseInternalServerError("result is undefined")
     }
     // return new HttpResponseOK(result["data"])  
@@ -96,8 +108,8 @@ export class OauthLoginController {
   
   @Post("/consentResp")
   async putConsent(ctx){
-    console.log(ctx.request.body)
-    let response:any ={};
+    // console.log(ctx.request.body)
+    let response:any ={}
     // if(ctx.request.body.login === "no"){
     //   response = await this.hydra.rejectConsent(ctx.request.body.challenge,{error : "login rejected",error_description:"no !"})
     // }else if(ctx.request.body.login === "save"){
