@@ -1,10 +1,15 @@
+/*
+ *   Copyright (c) 2020 
+ *   All rights reserved.
+ */
+
 
 import  * as https from 'https';
 // import { AdvancedConsoleLogger } from 'typeorm';
 
 
 export class Oauth_hydra {
-    public hydraAdminUrl = "box2.tekin.fr"
+    public hydraAdminUrl = "admin.oauth.srvdev2.tekin.tk"
     
     // constructor(){
     //     const url = new URL('/oauth2/auth/requests/' + flow, hydraUrl)

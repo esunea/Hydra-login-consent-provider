@@ -3,15 +3,23 @@
 <head>
   <meta charset="UTF-8">
   <title>{{ title }}</title>
+  <link rel="stylesheet" type="text/css" href="style.css">
 </head>
+
 <body>
-    <form action="/Oauth/loginResp" method="POST">
-    <input type="text" value="plop" name="login">
-    <input type="text" value="pass" name="pass">
-    <input type="hidden" value="{{ challenge }}" name="challenge"> 
-    <input type="submit" value="ok" name="submit">
+    <img src="/images/logo_domii.svg" class="image-login">
+    <p class="connect">Connectez-vous</p>
+
+    <form action="/Oauth/loginResp" class="form-login" method="POST">
+        <div class="form-class col s8 offset-s2 center"></div>
+          <input type="text" placeholder="Email" name="login" required>
+          <input type="text" placeholder="Mot de passe" name="pass" class="password" required>
+
+          <input type="hidden" value="{{ challenge }}" name="challenge">
+          <p class="error {{ error }}">Erreur, veuillez entrer des identifiants corrects.</p>
+          <button type="submit" value="Connexion" name="submit">Connexion</button>
+        </div>
     </form>
-    
 
 </body>
 </html>
