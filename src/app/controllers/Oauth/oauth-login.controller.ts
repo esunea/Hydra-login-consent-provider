@@ -4,11 +4,13 @@
  */
 
 import { Context, Get, HttpResponseOK, dependency, render, Post, HttpResponseInternalServerError, HttpResponseRedirect } from '@foal/core';
-import { Oauth_hydra } from '../../services';
+import { Oauth_hydra, DomiiApi } from '../../services';
 
 export class OauthLoginController {
   @dependency
   hydra:Oauth_hydra
+  @dependency
+  domiiApi : DomiiApi
 
   @Get('/')
   foo(ctx: Context) {
@@ -64,7 +66,7 @@ export class OauthLoginController {
         remember_for:3600
       })
     }else{
-      console.log(ctx.request.body.login)
+      // console.log(ctx.request.body.login)
       response = await this.hydra.acceptLogin(ctx.request.body.challenge,{
         subject:ctx.request.body.login,
       })
@@ -121,8 +123,8 @@ export class OauthLoginController {
 
   @Post('/consentResp')
   async putConsent(ctx){
-    console.log(ctx.request.body)
-    let response:any ={};
+    // console.log(ctx.request.body)
+    let response:any ={}
     // if(ctx.request.body.login === "no"){
     //   response = await this.hydra.rejectConsent(ctx.request.body.challenge,{error : "login rejected",error_description:"no !"})
     // }else if(ctx.request.body.login === "save"){
