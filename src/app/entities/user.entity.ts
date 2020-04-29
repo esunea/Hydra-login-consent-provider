@@ -1,3 +1,8 @@
+/*
+ *   Copyright (c) 2020 
+ *   All rights reserved.
+ */
+
 // import { hashPassword } from '@foal/core';
 import { /*Column, */Entity, PrimaryGeneratedColumn } from 'typeorm';
 
