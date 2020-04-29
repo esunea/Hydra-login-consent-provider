@@ -51,7 +51,15 @@ export class OauthLoginController {
     console.log(ctx.request.body);
     let response:any ={};
     let challenge = ctx.request.body.challenge;
+    
+    let result :any = await this.domiiApi.checkToken(ctx.request.body.login, ctx.request.body.pass)
+    // console.log(result.res)
 
+    console.log(result.data)
+    if(result.data){
+      
+    }
+    
     if(ctx.request.body.login === 'no'){
       //response = await this.hydra.rejectLogin(ctx.request.body.challenge,{error : 'login rejected',error_description:'no !'})
       return render('./templates/login.html', {
