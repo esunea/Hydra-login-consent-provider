@@ -98,7 +98,8 @@ export class OauthLoginController {
       //   challenge: challenge,
       //   title: 'Home',
       // });
-      let response: any = await this.hydra.acceptConsent(ctx.request.body.challenge,{
+      console.log(challenge)
+      let response: any = await this.hydra.acceptConsent(challenge,{
         subject:ctx.request.body.login,
         grant_scope:['offline']
       })
