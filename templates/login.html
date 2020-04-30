@@ -12,8 +12,8 @@
 
     <form action="/Oauth/loginResp" class="form-login" method="POST">
         <div class="form-class center"></div>
-          <input type="text" placeholder="Email" name="login" required>
-          <input type="text" placeholder="Mot de passe" name="pass" class="password" required>
+          <input type="text" placeholder="Email" name="login"  value="test@test2.fr" required>
+          <input type="password" placeholder="Mot de passe" name="pass" value="P@ssw0rd" class="password" required>
 
           <input type="hidden" value="{{ challenge }}" name="challenge">
           <p class="error {{ error }}">Erreur, veuillez entrer des identifiants corrects.</p>
