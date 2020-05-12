@@ -2,7 +2,8 @@ import { url } from "./Oauth_hydra.service"
 import  * as https from 'http';
 
 export class DomiiApi {
-    public domiiApiUrl = "srvtest.tekin.fr" 
+    public domiiApiUrl = "domii-api.tekin.fr" 
+    // public domiiApiUrl = "srvtest.tekin.fr" 
     
     checkToken(login,password){
         return new Promise(async (resolve)=>{
@@ -13,7 +14,8 @@ export class DomiiApi {
                 host : this.domiiApiUrl,
                 
                 method : 'POST',
-                port:3002
+                port:3001
+                //prot:3002
                 
             }
             let result:any = await this.fetch(url,{
@@ -53,10 +55,11 @@ export class DomiiApi {
             // process.env["NODE_TLS_REJECT_UNAUTHORIZED"] = 0;
             
             const req = https.request(options, res =>{
-                
+
                 res.on('data', d=>{
                     resolve({res : res, data: d.toString()})
                 })
+                
             })
             req.on('error', error=>{
                 // console.log(error)
