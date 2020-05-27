@@ -2,21 +2,28 @@ import { url } from "./Oauth_hydra.service"
 import  * as https from 'http';
 
 export class DomiiApi {
-    public domiiApiUrl = "domii-api.tekin.fr" 
-    // public domiiApiUrl = "srvtest.tekin.fr" 
-    
+    // public domiiApiUrl = "srvtest.tekin.fr"
+    // public port = 3002
+    public domiiApiUrl = "domii-api.tekin.fr"
+    public port = 3001
+
+
+
+    constructor(){
+        console.log("hey"+process.env.PLOUF)
+
+    }
     checkToken(login,password){
         return new Promise(async (resolve)=>{
-            
+
             // new URL
             let url = {
                 path : '/api/login',
                 host : this.domiiApiUrl,
-                
+
                 method : 'POST',
-                port:3001
-                //prot:3002
-                
+                port:this.port
+
             }
             let result:any = await this.fetch(url,{
                 email:login,
@@ -25,10 +32,10 @@ export class DomiiApi {
             // console.log(result["data"])
             resolve(result)
         })
-        
+
     }
-    
-    
+
+
     fetch(url:url,body?){
         return new Promise (function (resolve, reject){
             console.log(body)
@@ -42,7 +49,7 @@ export class DomiiApi {
                 rejectUnauthorized:false
             }
             // let agent = new https.Agent(agentOptions)
-            
+
             const options = {
                 // agent:agent,
                 hostname: url.host,
@@ -51,15 +58,15 @@ export class DomiiApi {
                 method: url.method,
                 headers: headers
             }
-            
+
             // process.env["NODE_TLS_REJECT_UNAUTHORIZED"] = 0;
-            
+
             const req = https.request(options, res =>{
 
                 res.on('data', d=>{
                     resolve({res : res, data: d.toString()})
                 })
-                
+
             })
             req.on('error', error=>{
                 // console.log(error)
