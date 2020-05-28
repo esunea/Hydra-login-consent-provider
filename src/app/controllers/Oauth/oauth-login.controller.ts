@@ -95,6 +95,8 @@ export class OauthLoginController {
       // }
       if(response) {
         if(response['data']) {
+          console.log("url")
+          console.log(JSON.parse(response['data'])['redirect_to'])
           return new HttpResponseRedirect(JSON.parse(response['data'])['redirect_to']);
         }
       } return new HttpResponseOK('It\'s not Okay');
