@@ -1,5 +1,5 @@
 /*
- *   Copyright (c) 2020 
+ *   Copyright (c) 2020
  *   All rights reserved.
  */
 
@@ -16,7 +16,7 @@ import { createConnection } from 'typeorm';
 import { AppController } from './app/app.controller';
 
 async function main() {
-  await createConnection();
+  // await createConnection();
 
   const app = createApp(AppController);
 
