@@ -3,6 +3,7 @@
 *   All rights reserved.
 */
 
+
 import { Context, Get, HttpResponseOK, dependency, render, Post, HttpResponseInternalServerError, HttpResponseRedirect } from '@foal/core';
 import { Oauth_hydra, DomiiApi } from '../../services';
 
@@ -53,7 +54,7 @@ export class OauthLoginController {
 
 
       response = await this.hydra.acceptLogin(ctx.request.body.challenge,{
-        subject:ctx.request.body.login,
+        subject:this.hashCode(result['data']['subject'],
       })
       if(response){
         if(response['data']) {
