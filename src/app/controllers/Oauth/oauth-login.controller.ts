@@ -49,12 +49,15 @@ export class OauthLoginController {
     let challenge = ctx.request.body.challenge;
 
     let result :any = await this.domiiApi.checkToken(ctx.request.body.login, ctx.request.body.pass)
+
+
+
     if(result && result.data){
       // console.log(result.data)
 
 
       response = await this.hydra.acceptLogin(ctx.request.body.challenge,{
-        subject:this.hashCode(result['data']['subject'],
+        subject:this.hashCode(result['data']['subject']),
       })
       if(response){
         if(response['data']) {
