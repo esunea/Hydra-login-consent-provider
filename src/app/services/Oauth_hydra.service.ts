@@ -9,7 +9,7 @@ import  * as https from 'https';
 
 
 export class Oauth_hydra {
-    public hydraAdminUrl = "oauthadmin.domii-api.tekin.fr"
+    public hydraAdminUrl = "admin.oauth.srvdev2.tekin.tk"
 
     // constructor(){
     //     const url = new URL('/oauth2/auth/requests/' + flow, hydraUrl)
