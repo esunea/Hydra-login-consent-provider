@@ -4,8 +4,11 @@ import  * as https from 'http';
 export class DomiiApi {
     // public domiiApiUrl = "srvtest.tekin.fr"
     // public port = 3002
-    public domiiApiUrl = "domii-api.tekin.fr"
-    public port = 3001
+    // public domiiApiUrl = "domii-api.tekin.fr"
+    // public port = 3001
+    public domiiApiUrl = process.env.DOMII_API_HOST ? process.env.DOMII_API_URL as string : "srvdev2.tekin.tk"
+    // public domiiApiPort = process.env.DOMII_API_PORT?process.env.DOMII_API_PORT:"80"
+    public port = process.env.DOMII_API_PORT?Number(process.env.DOMII_API_PORT):3001
 
 
 

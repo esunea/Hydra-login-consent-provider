@@ -3,7 +3,7 @@
 *   All rights reserved.
 */
 
-
+import *  as atob from 'atob'
 import { Context, Get, HttpResponseOK, dependency, render, Post, HttpResponseInternalServerError, HttpResponseRedirect } from '@foal/core';
 import { Oauth_hydra, DomiiApi } from '../../services';
 
@@ -20,6 +20,14 @@ export class OauthLoginController {
 
   @Get('/login')
   async getLogin(ctx:Context){
+
+
+    // var atob = require('atob');
+
+
+
+    // var bin = atob(b64);
+
     let challenge = ctx.request.query.login_challenge
     let result:any = await this.hydra.getHydra('login',challenge);
     if(result){
@@ -56,8 +64,15 @@ export class OauthLoginController {
       // console.log(result.data)
 
 
+      // console.log(JSON.parse(result.data).token)
+      var b64 = JSON.parse(result.data).token.split('.')[1];
+
+      let binaryData = Buffer.from(b64, "base64");
+      let base64Dec  = binaryData.toString("utf8");
+      let tokenData = JSON.parse(base64Dec);
+      console.log(tokenData)
       response = await this.hydra.acceptLogin(ctx.request.body.challenge,{
-        subject:this.hashCode(result['data']['subject']),
+        subject:tokenData.uuid
       })
       if(response){
         if(response['data']) {

@@ -1,17 +1,28 @@
-FROM node:slim
+
+# BUILD
+FROM node:12-alpine AS build
+
 WORKDIR /home/node/app
-COPY ./package.json .
-RUN npm i 
-COPY ./src ./src
-COPY ./config ./config
-COPY ./public ./public
-COPY ./templates ./templates
-COPY ./ormconfig.js ./ormconfig.js
-COPY ./ormconfig.js ./ormconfig.js
-COPY ./ormconfig.js ./ormconfig.js
-COPY ./tsconfig.app.json ./tsconfig.app.json
-COPY ./tsconfig.test.json ./tsconfig.test.json
-COPY ./tsconfig.json ./tsconfig.json
-COPY ./tsconfig.migrations.json ./tsconfig.migrations.json
+
+COPY package*.json ./
+RUN npm install
+
+COPY . .
+
 RUN npm run build:app
-CMD ["npm","run","start"]
+
+
+
+# PRODUCTION
+FROM node:12-alpine AS production
+
+WORKDIR /home/node/app
+
+COPY package*.json ./
+
+RUN npm i --prod
+
+COPY --from=build /home/node/app/build/ .
+COPY ./templates/ ./templates/
+COPY ./public/ ./public/
+CMD ["node","index.js"]

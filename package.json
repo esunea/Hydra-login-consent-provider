@@ -32,6 +32,8 @@
   "dependencies": {
     "@foal/core": "^1.0.0",
     "@foal/typeorm": "^1.0.0",
+    "atob": "^2.1.2",
+    "jsonwebtoken": "^8.5.1",
     "mysql": "^2.17.1",
     "source-map-support": "^0.5.1",
     "sqlite3": "^4.0.0",

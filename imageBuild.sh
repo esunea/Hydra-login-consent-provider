@@ -1,0 +1,1 @@
+docker build -t consent-login:$1 .
