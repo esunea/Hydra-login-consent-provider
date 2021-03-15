@@ -10,6 +10,7 @@ import  * as https from 'https';
 
 export class Oauth_hydra {
     public hydraAdminUrl = process.env.HYDRA_ADMIN_HOST?process.env.HYDRA_ADMIN_HOST:"admin.oauth.srvdev2.tekin.tk"
+    public port = process.env.HYDRA_ADMIN_PORT?Number(process.env.HYDRA_ADMIN_PORT):443
 
     // constructor(){
     //     const url = new URL('/oauth2/auth/requests/' + flow, hydraUrl)
@@ -30,7 +31,7 @@ export class Oauth_hydra {
                 path : '/oauth2/auth/requests/' + flow + "?" + flow + "_challenge=" + challenge,
                 host : this.hydraAdminUrl,
                 method : 'GET',
-                port:443
+                port:this.port
 
             }
             let result:any = await this.fetch(url)
@@ -54,7 +55,7 @@ export class Oauth_hydra {
                 path : '/oauth2/auth/requests/' + flow + "/" + action + "?" + flow + "_challenge=" + challenge,
                 host : this.hydraAdminUrl,
                 method : 'PUT',
-                port:443
+                port:this.port
             }
             let result:any = await this.fetch(url,body)
             // console.log(result["data"])
